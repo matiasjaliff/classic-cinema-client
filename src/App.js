@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-import Navbar from "./components/Navbar";
-import Featured from "./components/Featured";
-import Carrousel from "./components/Carrousel";
+import Home from "./views/Home";
+import Movie from "./views/Movie";
+import NotFound from "./views/NotFound";
 import Footer from "./components/Footer";
 
 import { useDispatch } from "react-redux";
 import { sendMovieRequest } from "./redux/movieSlice";
+import { sendCarrouselMoviesRequest } from "./redux/carrouselSlice";
 
 const getFeaturedMovieId = () => {
   return axios
@@ -24,6 +26,7 @@ function App() {
 
   useEffect(() => {
     if (!effectRan.current) {
+      dispatch(sendCarrouselMoviesRequest());
       getFeaturedMovieId()
         .then((id) => dispatch(sendMovieRequest(id)))
         .catch((err) => console.error(err));
@@ -33,16 +36,12 @@ function App() {
 
   return (
     <div id="app" className="bg-zinc-800 text-white">
-      <div id="navbar">
-        <Navbar />
-      </div>
-      <div id="content">
-        <Featured />
-        <Carrousel />
-      </div>
-      <div id="footer">
-        <Footer />
-      </div>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

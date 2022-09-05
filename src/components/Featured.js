@@ -9,13 +9,7 @@ import Plus from "../icons/Plus";
 const Featured = () => {
   const movieData = useSelector((state) => state.movie.data);
   const movieImages = useSelector((state) => state.movie.images);
-  // const movieVideos = useSelector((state) => state.movie.video);
-
-  movieImages.length
-    ? console.log(
-        `http://image.tmdb.org/t/p/original${movieImages[0].file_path}`
-      )
-    : console.log("SIN IMAGEN");
+  const movieVideos = useSelector((state) => state.movie.video);
 
   return (
     <div
@@ -36,7 +30,7 @@ const Featured = () => {
             <p className="mt-2 text-3xl font-semibold">{movieData.title}</p>
             <div id="yearAndGenres" className="flex flex-row pt-2">
               <p className="text-sm">{movieData.release_date.slice(0, 4)}</p>
-              <div id="genres" className="pl-2 flex flex-row space-x-2">
+              <div id="genres" className="pl-2 flex flex-row flex-wrap">
                 {movieData.genres.map((genre) => (
                   <GenreBadge genre={genre.name} key={genre.id} />
                 ))}

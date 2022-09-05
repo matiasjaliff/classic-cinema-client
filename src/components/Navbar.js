@@ -1,8 +1,8 @@
 import React from "react";
-
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 import logo from "../images/navbar-logo.png";
 
@@ -36,16 +36,18 @@ const Navbar = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-center sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="block h-16 w-auto lg:hidden"
-                    src={logo}
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden h-16 w-auto lg:block"
-                    src={logo}
-                    alt="Workflow"
-                  />
+                  <Link to={"/"}>
+                    <img
+                      className="block h-16 w-auto lg:hidden"
+                      src={logo}
+                      alt="Workflow"
+                    />
+                    <img
+                      className="hidden h-16 w-auto lg:block"
+                      src={logo}
+                      alt="Workflow"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block md:flex-shrink-0">
                   <div className="flex space-x-4">

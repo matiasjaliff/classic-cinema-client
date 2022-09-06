@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import movieReducer from "./movieSlice";
-import carrouselReducer from "./carrouselSlice";
+import featuredMovieReducer from "./featuredMovieSlice";
+import selectedMovieReducer from "./selectedMovieSlice";
+import inTheatersMoviesReducer from "./inTheatersMoviesSlice";
+import recommendedMoviesReducer from "./recommendedMovies";
 
 export const store = configureStore({
   reducer: {
-    movie: movieReducer,
-    carrousel: carrouselReducer,
+    featuredMovie: featuredMovieReducer,
+    selectedMovie: selectedMovieReducer,
+    inTheatersMovies: inTheatersMoviesReducer,
+    recommendedMovies: recommendedMoviesReducer,
   },
 });

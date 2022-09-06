@@ -1,17 +1,17 @@
 import { useEffect, useRef } from "react";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { sendFeaturedMovieRequest } from "./redux/featuredMovieSlice";
+import { sendInTheatersMoviesRequest } from "./redux/inTheatersMoviesSlice";
 
 import "./App.css";
 
 import Home from "./views/Home";
-import Movie from "./views/Movie";
+import MovieDetails from "./views/MovieDetails";
 import NotFound from "./views/NotFound";
 import Footer from "./components/Footer";
-
-import { useDispatch } from "react-redux";
-import { sendMovieRequest } from "./redux/movieSlice";
-import { sendCarrouselMoviesRequest } from "./redux/carrouselSlice";
 
 const getFeaturedMovieId = () => {
   return axios
@@ -26,10 +26,10 @@ function App() {
 
   useEffect(() => {
     if (!effectRan.current) {
-      dispatch(sendCarrouselMoviesRequest());
       getFeaturedMovieId()
-        .then((id) => dispatch(sendMovieRequest(id)))
+        .then((id) => dispatch(sendFeaturedMovieRequest(id)))
         .catch((err) => console.error(err));
+      dispatch(sendInTheatersMoviesRequest());
       effectRan.current = true;
     }
   }, []);
@@ -38,7 +38,7 @@ function App() {
     <div id="app" className="bg-zinc-800 text-white">
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/movie/:id" element={<MovieDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

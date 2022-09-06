@@ -5,26 +5,26 @@ const initialState = {
   movies: [],
 };
 
-export const carrouselSlice = createSlice({
-  name: "carrousel",
+export const inTheatersMoviesSlice = createSlice({
+  name: "inTheaters",
   initialState,
   reducers: {
-    setCarrouselMovies: (state, action) => {
+    setInTheatersMovies: (state, action) => {
       state.movies = action.payload;
     },
   },
 });
 
-export const { setCarrouselMovies } = carrouselSlice.actions;
+export const { setInTheatersMovies } = inTheatersMoviesSlice.actions;
 
-export const sendCarrouselMoviesRequest = () => (dispatch) => {
+export const sendInTheatersMoviesRequest = () => (dispatch) => {
   axios
     .get(`http://localhost:8080/api/tmdb/inTheaters`)
     .then((res) => {
       console.log(res.data);
-      dispatch(setCarrouselMovies(res.data));
+      dispatch(setInTheatersMovies(res.data));
     })
     .catch((err) => console.error(err));
 };
 
-export default carrouselSlice.reducer;
+export default inTheatersMoviesSlice.reducer;

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useSelector } from "react-redux";
 
 import GenreBadge from "../commons/GenreBadge";
@@ -7,9 +5,9 @@ import Rating from "../commons/Rating";
 import Plus from "../icons/Plus";
 
 const Featured = () => {
-  const movieData = useSelector((state) => state.movie.data);
-  const movieImages = useSelector((state) => state.movie.images);
-  const movieVideos = useSelector((state) => state.movie.video);
+  const movieData = useSelector((state) => state.featuredMovie.data);
+  const movieImages = useSelector((state) => state.featuredMovie.images);
+  // const movieVideos = useSelector((state) => state.featuredMovie.video);
 
   return (
     <div

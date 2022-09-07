@@ -1,6 +1,12 @@
 import { useSelector } from "react-redux";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import {
+  HeartIcon as SolidHeartIcon,
+  PlayIcon,
+} from "@heroicons/react/24/solid";
 
 import GenreBadge from "../commons/GenreBadge";
+import StarBadge from "../commons/StarBadge";
 
 const Movie = () => {
   const movieData = useSelector((state) => state.selectedMovie.data);
@@ -51,16 +57,21 @@ const Movie = () => {
     >
       {movieData.id ? (
         <div>
-          <div className="h-[100vw] flex flex-col px-4 bg-gradient-to-b from-zinc-800">
-            <p className="text-sm">
-              {movieData.release_date.slice(0, 4)}
-              <span className="mx-2 px-1 border rounded">
-                {certification()}
-              </span>
-              {runtime()}
-            </p>
-            <p className="mt-1 text-3xl font-semibold">{movieData.title}</p>
-            <p className="text-sm">{movieData.tagline}</p>
+          <div className="h-[100vw] flex flex-col px-4 bg-gradient-to-b from-zinc-800 via-zinc-600/70">
+            <div className="flex flex-row">
+              <div className="flex flex-col w-3/4">
+                <p className="text-sm">
+                  {movieData.release_date.slice(0, 4)}
+                  <span className="mx-2 px-1 border rounded">
+                    {certification()}
+                  </span>
+                  {runtime()}
+                </p>
+                <p className="mt-1 text-3xl font-semibold">{movieData.title}</p>
+                <p className="text-sm">{movieData.tagline}</p>
+              </div>
+              <div className="w-1/4"></div>
+            </div>
             <div id="genres" className="pt-2 flex flex-row flex-wrap">
               {movieData.genres.map((genre) => (
                 <GenreBadge genre={genre.name} key={genre.id} />
@@ -74,21 +85,23 @@ const Movie = () => {
                   : ""}
               </p>
             </div>
-            <div className="mt-1 flex flex-row flew-wrap">
+            <div className="mt-1 flex flex-row">
               <p className="mr-2 font-semibold">Stars</p>
-              <p>
-                {movieCredits.cast.length
+              <div className="flex flex-row flex-wrap">
+                {Object.keys(movieCredits).length
                   ? movieCredits.cast
                       .slice(0, 3)
-                      .map((star, index) =>
-                        index < 2 ? star.name + ", " : star.name
-                      )
+                      .map((star, index) => (
+                        <StarBadge star={star.name} index={index} key={index} />
+                      ))
                   : ""}
-              </p>
+              </div>
             </div>
           </div>
           <div className="h-[50vw] flex flex-col-reverse bg-gradient-to-t from-zinc-800">
-            <div className="flex flex-row-reverse">ICON</div>
+            <div className="flex flex-row-reverse">
+              <PlayIcon className="w-14 m-4 stroke-orange-500/70 fill-orange-500/70" />
+            </div>
           </div>
         </div>
       ) : (

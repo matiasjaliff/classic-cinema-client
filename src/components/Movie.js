@@ -1,12 +1,10 @@
 import { useSelector } from "react-redux";
-import { HeartIcon } from "@heroicons/react/24/outline";
-import {
-  HeartIcon as SolidHeartIcon,
-  PlayIcon,
-} from "@heroicons/react/24/solid";
+import { HeartIcon as OutlinedHeartIcon} from "@heroicons/react/24/outline";
+import { HeartIcon as SolidHeartIcon, PlayIcon } from "@heroicons/react/24/solid";
 
 import GenreBadge from "../commons/GenreBadge";
 import StarBadge from "../commons/StarBadge";
+import RatingBadge from "../commons/RatingBadge";
 
 const Movie = () => {
   const movieData = useSelector((state) => state.selectedMovie.data);
@@ -41,8 +39,6 @@ const Movie = () => {
     } else return [];
   };
 
-  directors();
-
   return (
     <div
       id="movie"
@@ -59,7 +55,7 @@ const Movie = () => {
         <div>
           <div className="h-[100vw] flex flex-col px-4 bg-gradient-to-b from-zinc-800 via-zinc-600/70">
             <div className="flex flex-row">
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-5/6">
                 <p className="text-sm">
                   {movieData.release_date.slice(0, 4)}
                   <span className="mx-2 px-1 border rounded">
@@ -70,7 +66,9 @@ const Movie = () => {
                 <p className="mt-1 text-3xl font-semibold">{movieData.title}</p>
                 <p className="text-sm">{movieData.tagline}</p>
               </div>
-              <div className="w-1/4"></div>
+              <div className="w-1/6 flex flex-col items-end">
+                <RatingBadge rating={movieData.vote_average} />
+              </div>
             </div>
             <div id="genres" className="pt-2 flex flex-row flex-wrap">
               {movieData.genres.map((genre) => (
@@ -99,8 +97,12 @@ const Movie = () => {
             </div>
           </div>
           <div className="h-[50vw] flex flex-col-reverse bg-gradient-to-t from-zinc-800">
-            <div className="flex flex-row-reverse">
-              <PlayIcon className="w-14 m-4 stroke-orange-500/70 fill-orange-500/70" />
+            <div className="flex flex-row-reverse mb-4">
+              <div className="w-1/4 flex flex-col items-center">
+                {/* <SolidHeartIcon className="w-14 mb-2 stroke-orange-500/70 fill-orange-500/70" /> */}
+                <OutlinedHeartIcon className="w-14 mb-2 stroke-orange-500/70" />
+                <PlayIcon className="w-14 stroke-orange-500/70 fill-orange-500/70" />
+              </div>
             </div>
           </div>
         </div>
